@@ -64,9 +64,28 @@ UPDATE accounts SET balance = balance - 300 WHERE account_id = 8;
 
 COMMIT;
 
+-- class 2 
 
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+START TRANSACTION;
 
+insert into accounts(name, balance) values ('neha', 200); 
+UPDATE accounts SET balance = balance - 300 WHERE account_id = 8;
 
+COMMIT;
+
+SELECT * FROM accounts;
+
+-- shared locks
+
+SELECT * FROM accounts
+WHERE account_id = 1
+lock in share mode;
+
+-- Ecxclusive locks
+SELECT * FROM accounts
+WHERE account_id = 1
+FOR UPDATE;
 
 
 
